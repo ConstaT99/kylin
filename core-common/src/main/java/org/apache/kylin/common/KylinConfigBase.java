@@ -28,6 +28,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Set;
+import java.util.Iterator;
 import java.util.Map.Entry;
 import java.util.Properties;
 import java.util.SortedSet;
@@ -180,6 +182,20 @@ public abstract class KylinConfigBase implements Serializable {
     protected String getOptional(String prop, String dft) {
 
         final String property = System.getProperty(prop);
+        /*
+        * begin ctest
+        * */
+        String res;
+        if(property != null){
+            res = getSubstitutor().replace(property, System.getenv());
+        }else{
+            res = getSubstitutor().replace(properties.getProperty(prop, dft), System.getenv());
+        }
+
+        logger.warn("[CTEST][GET-PARAM] " + prop + ' '+ res );//ctest
+        /*
+        * end ctest
+        * */
         return property != null ? getSubstitutor().replace(property, System.getenv())
                 : getSubstitutor().replace(properties.getProperty(prop, dft), System.getenv());
     }
@@ -200,6 +216,15 @@ public abstract class KylinConfigBase implements Serializable {
             if (propertyKeys == null || propertyKeys.contains(entry.getKey())) {
                 filteredProperties.put(entry.getKey(), sub.replace((String) entry.getValue()));
             }
+        }
+        if( propertyKeys != null){
+            Set<String> names = filteredProperties.stringPropertyNames(); // ctest
+            Iterator<String> namesIterator = names.iterator(); // ctest
+            int i = 0; //ctest
+            while (namesIterator.hasNext()){ // ctest
+                logger.warn("[CTEST][GET-PARAM]" + namesIterator.next() + " index: " + i);// ctest
+                i ++; // ctest
+            }// ctest
         }
         return filteredProperties;
     }
@@ -222,6 +247,7 @@ public abstract class KylinConfigBase implements Serializable {
         for (Entry<Object, Object> entry : getAllProperties().entrySet()) {
             String key = (String) entry.getKey();
             if (key.startsWith(prefix)) {
+                logger.warn("[CTEST][GET-PARAM]: " + key);//ctest
                 result.put(key.substring(prefix.length()), (String) entry.getValue());
             }
         }
@@ -258,7 +284,7 @@ public abstract class KylinConfigBase implements Serializable {
      * Use with care, properties should be read-only. This is for testing only.
      */
     final public void setProperty(String key, String value) {
-        logger.info("Kylin Config was updated with {} : {}", key, value);
+        logger.info("[CTEST][SET-PARAM]: Kylin Config was updated with {} : {}", key, value);// Ctest
         properties.setProperty(BCC.check(key), value);
     }
 

@@ -46,6 +46,8 @@ import java.util.Collection;
 import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.Set;
+import java.util.Iterator;
 
 import org.apache.kylin.shaded.com.google.common.base.Strings;
 import org.apache.kylin.shaded.com.google.common.base.Preconditions;
@@ -160,6 +162,15 @@ public class KylinConfig extends KylinConfigBase {
                     logger.info("Initialized a new KylinConfig from getInstanceFromEnv : "
                             + System.identityHashCode(config));
                     SYS_ENV_INSTANCE = config;
+
+//                    Set<String> names = config.properties.stringPropertyNames(); // ctest
+//                    Iterator<String> namesIterator = names.iterator(); // ctest
+//                    int j = 0;// cetst
+//                    while (namesIterator.hasNext()){ // ctest
+//                        logger.warn("[CTEST][GET-PARAM]" + namesIterator.next() + j);// ctest
+//                        j++;
+//                    }// ctest
+
                 } catch (IllegalArgumentException e) {
                     throw new IllegalStateException("Failed to find KylinConfig ", e);
                 }
@@ -186,20 +197,20 @@ public class KylinConfig extends KylinConfigBase {
 
         //uncomment below to start debugging
 
-        //        Thread t = Thread.currentThread();
-        //        int maxStackTraceDepth = 20;
-        //        int current = 0;
-        //
-        //        StackTraceElement[] stackTrace = t.getStackTrace();
-        //        StringBuilder buf = new StringBuilder("This is not a exception, just for diagnose purpose:");
-        //        buf.append("\n");
-        //        for (StackTraceElement e : stackTrace) {
-        //            if (++current > maxStackTraceDepth) {
-        //                break;
-        //            }
-        //            buf.append("\t").append("at ").append(e.toString()).append("\n");
-        //        }
-        //        logger.info(buf.toString());
+//                Thread t = Thread.currentThread();
+//                int maxStackTraceDepth = 20;
+//                int current = 0;
+//
+//                StackTraceElement[] stackTrace = t.getStackTrace();
+//                StringBuilder buf = new StringBuilder("This is not a exception, just for diagnose purpose:");
+//                buf.append("\n");
+//                for (StackTraceElement e : stackTrace) {
+//                    if (++current > maxStackTraceDepth) {
+//                        break;
+//                    }
+//                    buf.append("\t").append("at ").append(e.toString()).append("\n");
+//                }
+//                logger.info(buf.toString());
     }
 
     public enum UriType {
@@ -438,8 +449,16 @@ public class KylinConfig extends KylinConfigBase {
             OrderedProperties temp = new OrderedProperties();
             temp.load(confReader);
             temp = BCC.check(temp);
-
             properties.putAll(temp);
+
+//            Set<String> names = properties.stringPropertyNames(); // ctest
+//            Iterator<String> namesIterator = names.iterator(); // ctest
+//            int j = 0;// cetst
+//            while (namesIterator.hasNext()){ // ctest
+//                logger.warn("[CTEST][GET-PARAM]" + namesIterator.next() + j);// ctest
+//                j++;
+//            }// ctest
+
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
