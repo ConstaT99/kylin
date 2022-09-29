@@ -1,0 +1,34 @@
+diff --git a/core-common/src/main/java/org/apache/kylin/common/KylinConfigBase.java b/core-common/src/main/java/org/apache/kylin/common/KylinConfigBase.java
+index 0c22c0d94..b3b9e02ac 100644
+--- a/core-common/src/main/java/org/apache/kylin/common/KylinConfigBase.java
++++ b/core-common/src/main/java/org/apache/kylin/common/KylinConfigBase.java
+@@ -28,6 +28,8 @@ import java.util.HashMap;
+ import java.util.List;
+ import java.util.Locale;
+ import java.util.Map;
++import java.util.Set;
++import java.util.Iterator;
+ import java.util.Map.Entry;
+ import java.util.Properties;
+ import java.util.SortedSet;
+@@ -201,6 +203,11 @@ public abstract class KylinConfigBase implements Serializable {
+                 filteredProperties.put(entry.getKey(), sub.replace((String) entry.getValue()));
+             }
+         }
++        Set<String> names = filteredProperties.stringPropertyNames(); // ctest
++        Iterator<String> namesIterator = names.iterator(); // ctest
++        while (namesIterator.hasNext()){ // ctest
++            logger.warn("[CTEST][GET-PARAM]" + namesIterator.next());// ctest
++        }// ctest
+         return filteredProperties;
+     }
+ 
+@@ -258,7 +265,7 @@ public abstract class KylinConfigBase implements Serializable {
+      * Use with care, properties should be read-only. This is for testing only.
+      */
+     final public void setProperty(String key, String value) {
+-        logger.info("Kylin Config was updated with {} : {}", key, value);
++        logger.info("[CTEST][SET-PARAM]: Kylin Config was updated with {} : {}", key, value);// Ctest
+         properties.setProperty(BCC.check(key), value);
+     }
+ 
