@@ -19,11 +19,17 @@
 package org.apache.kylin.common;
 
 import org.junit.Assert;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.TestName;
 
 public class KylinVersionTest {
+
+    @Rule
+    public TestName name = new TestName();
     @Test
     public void testNormal() {
+        System.out.println("[displayName] " + name.getMethodName());
         KylinVersion ver1 = new KylinVersion("2.1.0");
         Assert.assertEquals(2, ver1.major);
         Assert.assertEquals(1, ver1.minor);

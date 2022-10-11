@@ -24,9 +24,11 @@ import java.util.Properties;
 
 import org.apache.kylin.common.KylinConfig.SetAndUnsetThreadLocalConfig;
 import org.junit.Assert;
+import org.junit.Rule;
 import org.junit.Test;
 
 import org.apache.kylin.shaded.com.google.common.collect.Maps;
+import org.junit.rules.TestName;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
@@ -36,9 +38,11 @@ import static org.junit.Assert.assertTrue;
 
 
 public class KylinConfigTest extends HotLoadKylinPropertiesTestCase {
-
+    @Rule
+    public TestName name = new TestName();
     @Test
     public void testMRConfigOverride() {
+        System.out.println("[TestName] " + name.getMethodName());
         KylinConfig config = KylinConfig.getInstanceFromEnv();
         Map<String, String> override = config.getMRConfigOverride();
         assertEquals(2, override.size());
@@ -48,6 +52,7 @@ public class KylinConfigTest extends HotLoadKylinPropertiesTestCase {
 
     @Test
     public void testBackwardCompatibility() {
+        System.out.println("[TestName] " + name.getMethodName());
         KylinConfig config = KylinConfig.getInstanceFromEnv();
         final String oldk = "kylin.test.bcc.old.key";
         final String newk = "kylin.test.bcc.new.key";
@@ -68,6 +73,7 @@ public class KylinConfigTest extends HotLoadKylinPropertiesTestCase {
 
     @Test
     public void testExtShareTheBase() {
+        System.out.println("[TestName] " + name.getMethodName());
         KylinConfig config = KylinConfig.getInstanceFromEnv();
         Map<String, String> override = Maps.newHashMap();
         KylinConfig configExt = KylinConfigExt.createInstance(config, override);
@@ -78,6 +84,7 @@ public class KylinConfigTest extends HotLoadKylinPropertiesTestCase {
 
     @Test
     public void testPropertiesHotLoad() {
+        System.out.println("[TestName] " + name.getMethodName());
         KylinConfig config = KylinConfig.getInstanceFromEnv();
         assertEquals("whoami@kylin.apache.org", config.getKylinOwner());
 
@@ -89,6 +96,7 @@ public class KylinConfigTest extends HotLoadKylinPropertiesTestCase {
 
     @Test
     public void testGetMetadataUrlPrefix() {
+        System.out.println("[TestName] " + name.getMethodName());
         KylinConfig config = KylinConfig.getInstanceFromEnv();
 
         config.setMetadataUrl("testMetaPrefix@hbase");
@@ -103,6 +111,7 @@ public class KylinConfigTest extends HotLoadKylinPropertiesTestCase {
 
     @Test
     public void testThreadLocalOverride() throws InterruptedException {
+        System.out.println("[TestName] " + name.getMethodName());
         final String metadata1 = "meta1";
         final String metadata2 = "meta2";
 
@@ -136,6 +145,7 @@ public class KylinConfigTest extends HotLoadKylinPropertiesTestCase {
 
     @Test
     public void testHdfsWorkingDir() {
+        System.out.println("[TestName] " + name.getMethodName());
         KylinConfig conf = KylinConfig.getInstanceFromEnv();
         String hdfsWorkingDirectory = conf.getHdfsWorkingDirectory();
         assertTrue(hdfsWorkingDirectory.startsWith("file:/"));
@@ -143,6 +153,7 @@ public class KylinConfigTest extends HotLoadKylinPropertiesTestCase {
 
     @Test
     public void testUnexpectedBlackInPro() {
+        System.out.println("[TestName] " + name.getMethodName());
         KylinConfig conf = KylinConfig.getInstanceFromEnv();
         Map<String, String> override = conf.getPropertiesByPrefix("kylin.engine.mr.config-override.");
         assertEquals(2, override.size());
@@ -152,6 +163,7 @@ public class KylinConfigTest extends HotLoadKylinPropertiesTestCase {
 
     @Test
     public void testCalciteExtrasProperties() {
+        System.out.println("[TestName] " + name.getMethodName());
         KylinConfig conf = KylinConfig.getInstanceFromEnv();
         Properties extras = conf.getCalciteExtrasProperties();
         assertEquals("true", extras.getProperty("caseSensitive"));
@@ -172,6 +184,7 @@ public class KylinConfigTest extends HotLoadKylinPropertiesTestCase {
 
   @Test
   public void testSetKylinConfigInEnvIfMissingTakingEmptyProperties() {
+      System.out.println("[TestName] " + name.getMethodName());
       Properties properties = new Properties();
       KylinConfig.setKylinConfigInEnvIfMissing(properties);
 
@@ -186,11 +199,13 @@ public class KylinConfigTest extends HotLoadKylinPropertiesTestCase {
 
   @Test(expected = IllegalStateException.class)
   public void testCreateInstanceFromUriThrowsIllegalStateExceptionOne() {
-        KylinConfig.createInstanceFromUri("cb%MnlG]3:nav");
+      System.out.println("[TestName] " + name.getMethodName());
+      KylinConfig.createInstanceFromUri("cb%MnlG]3:nav");
   }
 
   @Test(expected = RuntimeException.class)
   public void testCreateInstanceFromUriThrowsRuntimeException() {
+      System.out.println("[TestName] " + name.getMethodName());
       Properties properties = new Properties();
       KylinConfig.setKylinConfigInEnvIfMissing(properties);
 
@@ -202,6 +217,7 @@ public class KylinConfigTest extends HotLoadKylinPropertiesTestCase {
 
   @Test
   public void testKylinConfigExt(){
+      System.out.println("[TestName] " + name.getMethodName());
       KylinConfig conf = KylinConfig.getInstanceFromEnv();
       Map<String, String> overrideConf1 = new HashMap<>();
       overrideConf1.put("foo", "fooValue");
