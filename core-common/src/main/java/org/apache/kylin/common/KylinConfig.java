@@ -197,20 +197,20 @@ public class KylinConfig extends KylinConfigBase {
 
         //uncomment below to start debugging
 
-//                Thread t = Thread.currentThread();
-//                int maxStackTraceDepth = 20;
-//                int current = 0;
-//
-//                StackTraceElement[] stackTrace = t.getStackTrace();
-//                StringBuilder buf = new StringBuilder("This is not a exception, just for diagnose purpose:");
-//                buf.append("\n");
-//                for (StackTraceElement e : stackTrace) {
-//                    if (++current > maxStackTraceDepth) {
-//                        break;
-//                    }
-//                    buf.append("\t").append("at ").append(e.toString()).append("\n");
-//                }
-//                logger.info(buf.toString());
+        //        Thread t = Thread.currentThread();
+        //        int maxStackTraceDepth = 20;
+        //        int current = 0;
+        //
+        //        StackTraceElement[] stackTrace = t.getStackTrace();
+        //        StringBuilder buf = new StringBuilder("This is not a exception, just for diagnose purpose:");
+        //        buf.append("\n");
+        //        for (StackTraceElement e : stackTrace) {
+        //            if (++current > maxStackTraceDepth) {
+        //                break;
+        //            }
+        //            buf.append("\t").append("at ").append(e.toString()).append("\n");
+        //        }
+        //        logger.info(buf.toString());
     }
 
     public enum UriType {
@@ -449,6 +449,7 @@ public class KylinConfig extends KylinConfigBase {
             OrderedProperties temp = new OrderedProperties();
             temp.load(confReader);
             temp = BCC.check(temp);
+
             properties.putAll(temp);
         } catch (Exception e) {
             throw new RuntimeException(e);
