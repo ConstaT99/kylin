@@ -217,15 +217,21 @@ public abstract class KylinConfigBase implements Serializable {
                 filteredProperties.put(entry.getKey(), sub.replace((String) entry.getValue()));
             }
         }
+        /**
+         * get properties for ctest
+         */
         if (propertyKeys != null) {
-            Set<String> names = filteredProperties.stringPropertyNames(); // ctest
-            Iterator<String> namesIterator = names.iterator(); // ctest
+            Set<String> names = filteredProperties.stringPropertyNames();
+            Iterator<String> namesIterator = names.iterator();
             int i = 0; //ctest
-            while (namesIterator.hasNext()){ // ctest
-                logger.warn("[CTEST][GET-PARAM]" + namesIterator.next() + " index: " + i);// ctest
-                i ++; // ctest
-            }// ctest
+            while (namesIterator.hasNext()){
+                logger.warn("[CTEST][GET-PARAM]" + namesIterator.next() + " index: " + i);
+                i ++;
+            }
         }
+        /**
+         * end ctest
+         */
         return filteredProperties;
     }
 
