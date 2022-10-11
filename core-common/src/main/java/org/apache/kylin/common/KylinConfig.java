@@ -62,6 +62,7 @@ public class KylinConfig extends KylinConfigBase {
      */
     public static final String KYLIN_CONF_PROPERTIES_FILE = "kylin.properties";
     public static final String KYLIN_DEFAULT_CONF_PROPERTIES_FILE = "kylin-defaults.properties";
+    public static final String CTEST_CONF_PROPERTIES_FILE = "ctest.properties";
     public static final String KYLIN_CONF = "KYLIN_CONF";
 
     // static cached instances
@@ -128,7 +129,16 @@ public class KylinConfig extends KylinConfigBase {
                     loadPropertiesFromInputStream(additionalResource.openStream(), defaultOrderedProperties);
                 }
             }
-            //ctest
+            /**
+             * load ctest parameters
+             */
+            URL ctestResource = Thread.currentThread().getContextClassLoader().getResource(CTEST_CONF_PROPERTIES_FILE);
+            logger.info("[CTEST][LOAD-PARAM] Loading ctest.properties from {}", ctestResource.getPath());
+            loadPropertiesFromInputStream(ctestResource.openStream(), defaultOrderedProperties);
+            /**
+             * end ctest
+             */
+
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -161,15 +171,6 @@ public class KylinConfig extends KylinConfigBase {
                     logger.info("Initialized a new KylinConfig from getInstanceFromEnv : "
                             + System.identityHashCode(config));
                     SYS_ENV_INSTANCE = config;
-
-//                    Set<String> names = config.properties.stringPropertyNames(); // ctest
-//                    Iterator<String> namesIterator = names.iterator(); // ctest
-//                    int j = 0;// cetst
-//                    while (namesIterator.hasNext()) { // ctest
-//                        logger.warn("[CTEST][GET-PARAM]" + namesIterator.next() + j);// ctest
-//                        j++;
-//                    }// ctest
-
                 } catch (IllegalArgumentException e) {
                     throw new IllegalStateException("Failed to find KylinConfig ", e);
                 }
@@ -449,15 +450,6 @@ public class KylinConfig extends KylinConfigBase {
             temp.load(confReader);
             temp = BCC.check(temp);
             properties.putAll(temp);
-
-//            Set<String> names = properties.stringPropertyNames(); // ctest
-//            Iterator<String> namesIterator = names.iterator(); // ctest
-//            int j = 0;// cetst
-//            while (namesIterator.hasNext()){ // ctest
-//                logger.warn("[CTEST][GET-PARAM]" + namesIterator.next() + j);// ctest
-//                j++;
-//            }// ctest
-
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
