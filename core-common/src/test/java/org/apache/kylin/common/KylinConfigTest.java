@@ -186,7 +186,7 @@ public class KylinConfigTest extends HotLoadKylinPropertiesTestCase {
 
   @Test(expected = IllegalStateException.class)
   public void testCreateInstanceFromUriThrowsIllegalStateExceptionOne() {
-      KylinConfig.createInstanceFromUri("cb%MnlG]3:nav");
+        KylinConfig.createInstanceFromUri("cb%MnlG]3:nav");
   }
 
   @Test(expected = RuntimeException.class)
