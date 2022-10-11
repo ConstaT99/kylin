@@ -46,8 +46,6 @@ import java.util.Collection;
 import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.Set;
-import java.util.Iterator;
 
 import org.apache.kylin.shaded.com.google.common.base.Strings;
 import org.apache.kylin.shaded.com.google.common.base.Preconditions;
@@ -130,6 +128,7 @@ public class KylinConfig extends KylinConfigBase {
                     loadPropertiesFromInputStream(additionalResource.openStream(), defaultOrderedProperties);
                 }
             }
+            //ctest
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -166,7 +165,7 @@ public class KylinConfig extends KylinConfigBase {
 //                    Set<String> names = config.properties.stringPropertyNames(); // ctest
 //                    Iterator<String> namesIterator = names.iterator(); // ctest
 //                    int j = 0;// cetst
-//                    while (namesIterator.hasNext()){ // ctest
+//                    while (namesIterator.hasNext()) { // ctest
 //                        logger.warn("[CTEST][GET-PARAM]" + namesIterator.next() + j);// ctest
 //                        j++;
 //                    }// ctest

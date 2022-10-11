@@ -192,7 +192,7 @@ public abstract class KylinConfigBase implements Serializable {
             res = getSubstitutor().replace(properties.getProperty(prop, dft), System.getenv());
         }
 
-        logger.warn("[CTEST][GET-PARAM] " + prop + ' '+ res );//ctest
+        logger.warn("[CTEST][GET-PARAM] " + prop + ' '+ res);//ctest
         /*
         * end ctest
         * */
@@ -217,7 +217,7 @@ public abstract class KylinConfigBase implements Serializable {
                 filteredProperties.put(entry.getKey(), sub.replace((String) entry.getValue()));
             }
         }
-        if( propertyKeys != null){
+        if (propertyKeys != null) {
             Set<String> names = filteredProperties.stringPropertyNames(); // ctest
             Iterator<String> namesIterator = names.iterator(); // ctest
             int i = 0; //ctest
