@@ -290,7 +290,7 @@ public abstract class KylinConfigBase implements Serializable {
      * Use with care, properties should be read-only. This is for testing only.
      */
     final public void setProperty(String key, String value) {
-        logger.info("[CTEST][SET-PARAM]: Kylin Config was updated with {} : {}", key, value);// Ctest
+        logger.warn("[CTEST][SET-PARAM]: Kylin Config was updated with {} : {}", key, value);// Ctest
         properties.setProperty(BCC.check(key), value);
     }
 

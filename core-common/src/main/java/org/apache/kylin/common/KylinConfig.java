@@ -133,7 +133,7 @@ public class KylinConfig extends KylinConfigBase {
              * load ctest parameters
              */
             URL ctestResource = Thread.currentThread().getContextClassLoader().getResource(CTEST_CONF_PROPERTIES_FILE);
-            logger.info("[CTEST][LOAD-PARAM] Loading ctest.properties from {}", ctestResource.getPath());
+            logger.warn("[CTEST][LOAD-PARAM] Loading ctest.properties from {}" +  ctestResource.getPath());
             loadPropertiesFromInputStream(ctestResource.openStream(), defaultOrderedProperties);
             /**
              * end ctest
