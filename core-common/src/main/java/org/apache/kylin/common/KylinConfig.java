@@ -114,7 +114,7 @@ public class KylinConfig extends KylinConfigBase {
         try {
             URL resource = Thread.currentThread().getContextClassLoader()
                     .getResource(KYLIN_DEFAULT_CONF_PROPERTIES_FILE);
-            Preconditions.checkNotNull(resource);e
+            Preconditions.checkNotNull(resource);
             logger.info("Loading kylin-defaults.properties from {}", resource.getPath());
             loadPropertiesFromInputStream(resource.openStream(), defaultOrderedProperties);
 
