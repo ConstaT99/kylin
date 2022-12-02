@@ -188,11 +188,11 @@ public abstract class KylinConfigBase implements Serializable {
         String res;
         if(property != null){
             res = getSubstitutor().replace(property, System.getenv());
+            logger.warn("[CTEST][GET-PARAM] " + prop + ' '+ res);//ctest
         }else{
             res = getSubstitutor().replace(properties.getProperty(prop, dft), System.getenv());
+            logger.warn("[CTEST][GET-PARAM] " + prop + ' '+ res);//ctest
         }
-
-        logger.warn("[CTEST][GET-PARAM] " + prop + ' '+ res);//ctest
         /*
         * end ctest
         * */
