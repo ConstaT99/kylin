@@ -63,6 +63,7 @@ public class KylinConfig extends KylinConfigBase {
     public static final String KYLIN_CONF_PROPERTIES_FILE = "kylin.properties";
     public static final String KYLIN_DEFAULT_CONF_PROPERTIES_FILE = "kylin-defaults.properties";
     public static final String KYLIN_CONF = "KYLIN_CONF";
+    public static final String CTEST_CONF_PROPERTIES_FILE = "ctest.properties"; // ctest
 
     // static cached instances
     private static volatile KylinConfig SYS_ENV_INSTANCE = null;
@@ -128,6 +129,16 @@ public class KylinConfig extends KylinConfigBase {
                     loadPropertiesFromInputStream(additionalResource.openStream(), defaultOrderedProperties);
                 }
             }
+            // 3. load injection configuration from defined path.
+            /**
+             * load ctest parameters
+             */
+            URL ctestResource = Thread.currentThread().getContextClassLoader().getResource(CTEST_CONF_PROPERTIES_FILE);
+            logger.warn("[CTEST][LOAD-PARAM] Loading ctest.properties from {}" , ctestResource.getPath());
+            loadPropertiesFromInputStream(ctestResource.openStream(), defaultOrderedProperties);
+            /**
+             * end ctest
+             */
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
